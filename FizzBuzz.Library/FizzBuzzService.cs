@@ -14,8 +14,21 @@ namespace FizzBuzz.Library
             return GetFizzBuzzWithLinq(1, length);
         }
 
+        private bool correctFizzBuzzInputParameters(int low, int high, int fizzDigit, int buzzDigit)
+        {
+            if (low > 0 && low < high && fizzDigit > 0 &&  buzzDigit > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public IEnumerable<string> GetFizzBuzz(int start, int stop, int fizzDigit = FIZZDIGIT, int buzzDigit = BUZZDIGIT)
         {
+            if (!correctFizzBuzzInputParameters(start, stop, fizzDigit, buzzDigit))
+            {
+                return new List<string>();
+            }
             var results = new List<string>();
             var s = "";
             for (var i = start; i <= stop; i++)
@@ -41,6 +54,10 @@ namespace FizzBuzz.Library
 
         public IEnumerable<string> GetFizzBuzzWithLinq(int start, int stop, int fizzDigit = FIZZDIGIT, int buzzDigit = BUZZDIGIT)
         {
+            if (!correctFizzBuzzInputParameters(start, stop, fizzDigit, buzzDigit))
+            {
+                return new List<string>();
+            }
             var result = new List<string>();
             Enumerable.Range(start, stop).ToList().ForEach(x =>
             {
