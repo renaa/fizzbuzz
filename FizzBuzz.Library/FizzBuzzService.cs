@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FizzBuzz.Library
 {
@@ -10,7 +11,7 @@ namespace FizzBuzz.Library
 
         IEnumerable<string> IFizzBuzzService.GetFizzBuzz(int length)
         {
-            return GetFizzBuzz(1, length);
+            return GetFizzBuzzWithLinq(1, length);
         }
 
         public IEnumerable<string> GetFizzBuzz(int start, int stop, int fizzDigit = FIZZDIGIT, int buzzDigit = BUZZDIGIT)
@@ -36,6 +37,19 @@ namespace FizzBuzz.Library
 
             }
             return results;
+        }
+
+        public IEnumerable<string> GetFizzBuzzWithLinq(int start, int stop, int fizzDigit = FIZZDIGIT, int buzzDigit = BUZZDIGIT)
+        {
+            var result = new List<string>();
+            Enumerable.Range(start, stop).ToList().ForEach(x =>
+            {
+                string fizz = x % fizzDigit == 0 ? "Fizz" : "";
+                string buzz = x % buzzDigit == 0 ? "Buzz" : "";
+                string number = x % 3 != 0 & x % 5 != 0 ? x.ToString() : "";
+                result.Add($"{fizz}{buzz}{number}");
+            });
+            return result;
         }
     }
 }
