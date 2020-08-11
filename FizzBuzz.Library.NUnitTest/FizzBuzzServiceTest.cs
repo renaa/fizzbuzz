@@ -15,15 +15,13 @@ namespace FizzBuzz.Library.NUnitTest
         [Test]
         public void Test1()
         {
-            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "FizzBuzz.txt");
-
-            Console.WriteLine(path);
             // Arrange 
-            IEnumerable<string> expectedValues = File.ReadLines(path);
+            IEnumerable<string> expectedValues = File.ReadLines("FizzBuzz.txt");
 
             // Act
-            var service = new FizzBuzzService();
-            var output = service.GetFizzBuzz(1, 100);
+            IFizzBuzzService fizzBuzzService = new FizzBuzzService();
+            var output = fizzBuzzService.GetFizzBuzz(100);
+
             // Assert
             Assert.AreEqual(expectedValues, output);
         }
